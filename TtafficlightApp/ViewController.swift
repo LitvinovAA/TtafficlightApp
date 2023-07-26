@@ -12,20 +12,25 @@ final class ViewController: UIViewController {
     @IBOutlet var redView: UIView!
     @IBOutlet var yellowView: UIView!
     @IBOutlet var greenView: UIView!
+    
     @IBOutlet var ruleButton: UIButton!
+    
     private var color: TrafficLightColor?
     private let turnOffAlpha = 0.3
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        redView.layer.cornerRadius = 60
-        yellowView.layer.cornerRadius = 60
-        greenView.layer.cornerRadius = 60
         ruleButton.layer.cornerRadius = 10
-        
+ 
         setColor(to: color)
     }
 
+    override func viewWillLayoutSubviews() {
+        redView.layer.cornerRadius = redView.frame.width / 2
+        yellowView.layer.cornerRadius = yellowView.frame.width / 2
+        greenView.layer.cornerRadius = greenView.frame.width / 2
+
+    }
     private func setColor(to color: TrafficLightColor?) {
         
         redView.alpha = color == .red ? 1 : turnOffAlpha
