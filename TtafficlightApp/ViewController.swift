@@ -16,10 +16,12 @@ final class ViewController: UIViewController {
     @IBOutlet var ruleButton: UIButton!
     
     private var color: TrafficLightColor?
+    private let turnOnAlpha = 1.0
     private let turnOffAlpha = 0.3
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ruleButton.layer.cornerRadius = 10
  
         setColor(to: color)
@@ -33,21 +35,18 @@ final class ViewController: UIViewController {
     }
     private func setColor(to color: TrafficLightColor?) {
         
-        redView.alpha = color == .red ? 1 : turnOffAlpha
-        yellowView.alpha = color == .yellow ? 1 : turnOffAlpha
-        greenView.alpha = color == .green ? 1 : turnOffAlpha
+        redView.alpha = color == .red ? turnOnAlpha : turnOffAlpha
+        yellowView.alpha = color == .yellow ? turnOnAlpha : turnOffAlpha
+        greenView.alpha = color == .green ? turnOnAlpha : turnOffAlpha
 
     }
 
     @IBAction func ruleButtonDidTapped() {
-       ruleButton.setTitle("NEXT" , for: .normal)
-        
-        if color == nil {
-            color = .red
-        } else {
-            color?.toggle()
-        }
-        
+        if ruleButton.currentTitle == "START" {
+            ruleButton.setTitle("NEXT" , for: .normal)
+        }            
+        color == nil ? color = .red : color?.toggle()
+         
         setColor(to: color)
         
     }
